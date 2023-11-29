@@ -10,5 +10,5 @@ public class ColeccionDeDiscosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ColeccionDeDiscosApplication.class, args);
 	}
-	AutorService autorService = new AutorService();
+
 }

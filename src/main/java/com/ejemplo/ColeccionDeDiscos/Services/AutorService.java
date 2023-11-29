@@ -2,9 +2,10 @@ package com.ejemplo.ColeccionDeDiscos.Services;
 
 import com.ejemplo.ColeccionDeDiscos.Entity.Autor;
 import com.ejemplo.ColeccionDeDiscos.Repository.IDao;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class AutorService {
 
 private IDao<Autor> autorDao;

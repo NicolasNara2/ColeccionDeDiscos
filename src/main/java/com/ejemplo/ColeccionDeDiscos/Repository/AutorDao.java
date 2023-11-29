@@ -1,10 +1,12 @@
 package com.ejemplo.ColeccionDeDiscos.Repository;
 
 import com.ejemplo.ColeccionDeDiscos.Entity.Autor;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class AutorDao implements IDao<Autor> {
 
     private List<Autor> autores= new ArrayList<>();
@@ -31,6 +33,7 @@ public class AutorDao implements IDao<Autor> {
     }
     @Override
     public List<Autor> listarTodos() {
+        autores.add(autor1);autores.add(autor2);autores.add(autor3);
         return autores;
     }
     @Override
