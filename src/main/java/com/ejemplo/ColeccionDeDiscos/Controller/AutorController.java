@@ -1,5 +1,6 @@
 package com.ejemplo.ColeccionDeDiscos.Controller;
 
+import org.springframework.ui.Model;
 import com.ejemplo.ColeccionDeDiscos.Entity.Autor;
 import com.ejemplo.ColeccionDeDiscos.Services.AutorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,11 @@ public class AutorController {
     public AutorController(AutorService autorService) {
         this.autorService = autorService;
     }
+@GetMapping("/saludo")
+    public String saludo (Model model){
+    model.addAttribute("nombre", "Esta funcionando");
+    return "saludo";
+}
 
     @GetMapping("/Hola")
     public List<Autor> listarTodos(){
