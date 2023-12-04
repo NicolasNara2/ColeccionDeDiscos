@@ -1,6 +1,7 @@
 package com.ejemplo.ColeccionDeDiscos.Repository;
 
 import com.ejemplo.ColeccionDeDiscos.Entity.Autor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -14,7 +15,13 @@ public class AutorDao implements IDao<Autor> {
     private Autor autor2= new Autor("Miranda", 2L);
     private Autor autor3= new Autor("Soda Estereo", 3L);
 
-
+    @Autowired
+    public AutorDao() {
+        this.autores = new ArrayList<>();
+        autores.add(new Autor("Caetano",22L));
+        autores.add(new Autor("Bose", 23L));
+        autores.add(autor1);autores.add(autor2);autores.add(autor3);
+    }
 
     @Override
     public Autor create(Autor autor) {
@@ -33,7 +40,6 @@ public class AutorDao implements IDao<Autor> {
     }
     @Override
     public List<Autor> listarTodos() {
-        autores.add(autor1);autores.add(autor2);autores.add(autor3);
         return autores;
     }
     @Override

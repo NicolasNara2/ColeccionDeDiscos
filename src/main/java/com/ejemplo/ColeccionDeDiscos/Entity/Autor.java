@@ -10,6 +10,9 @@ public class Autor {
         this.id = id;
     }
 
+    public Autor() {
+    }
+
     public String getNombre() {
         return nombre;
     }

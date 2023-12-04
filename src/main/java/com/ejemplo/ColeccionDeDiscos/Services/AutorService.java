@@ -2,6 +2,7 @@ package com.ejemplo.ColeccionDeDiscos.Services;
 
 import com.ejemplo.ColeccionDeDiscos.Entity.Autor;
 import com.ejemplo.ColeccionDeDiscos.Repository.IDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ public class AutorService {
 
 private IDao<Autor> autorDao;
 
+@Autowired
     public AutorService(IDao autorDao) {
         this.autorDao = autorDao;
     }

@@ -1,15 +1,16 @@
 package com.ejemplo.ColeccionDeDiscos.Controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import com.ejemplo.ColeccionDeDiscos.Entity.Autor;
 import com.ejemplo.ColeccionDeDiscos.Services.AutorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/autor")
+@RestController
+@RequestMapping ("/autor")
 public class AutorController {
     private AutorService autorService;
 @Autowired
@@ -22,12 +23,35 @@ public class AutorController {
     return "saludo";
 }
 
-    @GetMapping("/Hola")
+    @GetMapping("/")
     public List<Autor> listarTodos(){
         return autorService.listarTodos();
     }
-    public Autor buscarId (Long id){
-        return autorService.buscarId(id);
+   // @GetMapping ("/{id}")
+   // public Autor buscarId (@PathVariable Long id) {return autorService.buscarId(id);}
+    @PostMapping
+    public Autor create(@RequestBody Autor autor) {
+    return autorService.create(autor);
     }
-
+    @DeleteMapping ("/{id}")
+    public void delete (@PathVariable Long id){
+    autorService.eliminar(id);
+    }
+    @PutMapping
+    public Autor update(Autor autor){
+    return autorService.update(autor);
+    }
+    @GetMapping("/{autorId}") // response entity
+    public ResponseEntity<?> buscarId(@PathVariable Long autorId) {
+        Autor autor= autorService.buscarId(autorId);
+        // lo tenemos definido en una variable estática
+      if (autor == null) {
+          System.out.println(autor);return
+                ResponseEntity.badRequest().body("Autor no encontrado");
+    }
+        else{
+        return ResponseEntity.status(200).body(autor);
+    }
+    // ResponseEntity.ok().body(autorEncontrado);
+}
 }
