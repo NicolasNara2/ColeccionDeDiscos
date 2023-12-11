@@ -1,31 +1,27 @@
 package com.ejemplo.ColeccionDeDiscos.Entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import java.util.Set;
+
+@Getter
+@Setter
+@ToString
+
+@Entity
+@Table (name= "autores")
 public class Autor {
-    private String nombre;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column (name = "apellido")
+    private String apellido;
+    @Column(name = "nombre")
+    private String nombre;
+    @OneToMany(mappedBy = "autor")
+    private Set<Disco> discos;
 
-
-    public Autor(String nombre, Long id) {
-        this.nombre = nombre;
-        this.id = id;
-    }
-
-    public Autor() {
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

@@ -1,43 +1,29 @@
 package com.ejemplo.ColeccionDeDiscos.Services;
 
 import com.ejemplo.ColeccionDeDiscos.Entity.Autor;
-import com.ejemplo.ColeccionDeDiscos.Repository.IDao;
+import com.ejemplo.ColeccionDeDiscos.Repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class AutorService {
-
-private IDao<Autor> autorDao;
-
+private AutorRepository autorRepository;
 @Autowired
-    public AutorService(IDao autorDao) {
-        this.autorDao = autorDao;
-    }
-
-    public IDao getAutorDao() {
-        return autorDao;
-    }
-
-    public void setAutorDao(IDao autorDao) {
-        this.autorDao = autorDao;
-    }
-
-    public Autor create(Autor autor){
-       return autorDao.create(autor);
-    }
+    public AutorService(AutorRepository autorRepository) {this.autorRepository = autorRepository;}
+    public Autor create(Autor autor){return autorRepository.save(autor);}
     public void eliminar (Long id){
-        autorDao.eliminar(id);
+        autorRepository.deleteById(id);
     }
-    public Autor buscarId (Long id){
-        return autorDao.buscarId(id);
+    public Optional<Autor> buscarId (Long id){
+        return autorRepository.findById(id);
     }
-
     public List<Autor> listarTodos(){
-        return autorDao.listarTodos();
+        return autorRepository.findAll();
     }
     public Autor update(Autor autor){
-        return autorDao.update(autor);
+        return autorRepository.save(autor);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping ("/autor")
@@ -17,18 +18,15 @@ public class AutorController {
     public AutorController(AutorService autorService) {
         this.autorService = autorService;
     }
-@GetMapping("/saludo")
-    public String saludo (Model model){
-    model.addAttribute("nombre", "Esta funcionando");
-    return "saludo";
-}
-
     @GetMapping("/")
-    public List<Autor> listarTodos(){
-        return autorService.listarTodos();
-    }
-   // @GetMapping ("/{id}")
-   // public Autor buscarId (@PathVariable Long id) {return autorService.buscarId(id);}
+    public ResponseEntity <?>listarTodos(){
+    List<Autor> autores=autorService.listarTodos();
+    if (autores.isEmpty()){
+        System.out.println(autores);return
+                ResponseEntity.badRequest().body("Autores no encontrados.");
+    } else {
+            return ResponseEntity.status(200).body(autores);}
+}
     @PostMapping
     public Autor create(@RequestBody Autor autor) {
     return autorService.create(autor);
@@ -43,15 +41,13 @@ public class AutorController {
     }
     @GetMapping("/{autorId}") // response entity
     public ResponseEntity<?> buscarId(@PathVariable Long autorId) {
-        Autor autor= autorService.buscarId(autorId);
-        // lo tenemos definido en una variable estática
-      if (autor == null) {
+        Optional<Autor> autor= autorService.buscarId(autorId);
+      if (autor.isEmpty()) {
           System.out.println(autor);return
                 ResponseEntity.badRequest().body("Autor no encontrado");
     }
         else{
         return ResponseEntity.status(200).body(autor);
     }
-    // ResponseEntity.ok().body(autorEncontrado);
 }
 }
